@@ -1,8 +1,16 @@
 import { createRoot } from "react-dom/client";
-import "../public/css/styles.css";
+import Header from "./Header.jsx";
+import MainContent from "./MainContent.jsx";
+import Footer from "./Footer.jsx";
+
 
 const root = createRoot(document.getElementById("root"));
 
 root.render(
-
+  <>
+    <Header />
+    <MainContent />
+    <Footer />
+  </>
 )
+
