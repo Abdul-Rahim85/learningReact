@@ -1,25 +1,29 @@
-import Contact from "./Contacts"
-import Joke from "./Joke"
-import jokesData from "./jokes"
+import React from "react"
+import "./styles.css"
 
-function App() {
-  const jokeElements = jokesData.map(joke => {
-    return <Joke
-      setup={joke.setup}
-      punchline={joke.punchline}
-    />
-  })
+export default function App() {
+  const [count, setCount] = React.useState(0);
+
+  function add() {
+    setCount(prevCount => prevCount + 1);
+  }
+
+  function subtract() {
+    setCount(prevCount => prevCount - 1);
+  }
+
 return (
-  <div className="contacts">
-    {jokeElements}
-  </div>
+  <main className="container">
+    <h1>How many times will Bob say "state" in this section?</h1>
+    <div className="counter">
+      <button className="minus" aria-label="Decrease count" onClick={subtract}>
+        –
+      </button>
+      <h2 className="count">{count}</h2>
+      <button className="plus" aria-label="Increase count" onClick={add}>
+        +
+      </button>
+    </div>
+  </main>
 )
 }
-
-export default App
-
-/*
-
-  
-
-*/ 
