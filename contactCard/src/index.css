@@ -52,7 +52,6 @@ main {
 .card .favorite-button {
     border: none;
     background: transparent;
-    outline: none;
 }
 
 .card .favorite-button:active {
