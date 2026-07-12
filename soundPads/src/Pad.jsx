@@ -1,3 +1,5 @@
+// import React from "react";
+
 export default function Pad(props) {
 
   return (
@@ -10,7 +12,8 @@ export default function Pad(props) {
 
         }
       }
-      className={props.on ? "on" : ""}
+      className={props.on ? "on" : undefined}
+      onClick={() => props.handleClick(props.id)}
     >
     </button>
   )
