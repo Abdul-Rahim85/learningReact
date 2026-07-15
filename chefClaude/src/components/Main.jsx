@@ -1,10 +1,11 @@
 import React from "react"
 import IngredientsList from "./IngredientsList.jsx"
 import ClaudeRecipe from "./ClaudeRecipe.jsx"
+import { getRecipeFromMistral } from "../ai"
 
 export default function Main() {
   const [ingredients, setIngredients] = React.useState([]);
-  const [recipeShown, setRecipeShown] = React.useState(false);
+  const [recipe, setRecipe] = React.useState("");
 
   // Handle adding a new ingredient
   function handleAddIngredient(formData) {
@@ -13,8 +14,13 @@ export default function Main() {
   }
 
   // Handle showing the recipe
-  function handleShowRecipe() {
-    setRecipeShown(true);
+  async function handleShowRecipe() {
+    try {
+      const recipeMarkdown = await getRecipeFromMistral(ingredients);
+      setRecipe(recipeMarkdown);
+    } catch (error) {
+      console.error("Error fetching recipe:", error);
+    }
   }
   return (
     <main>
@@ -33,7 +39,7 @@ export default function Main() {
         showingRecipe={handleShowRecipe}
         />
 
-      { recipeShown && <ClaudeRecipe /> }
+      { recipe && <ClaudeRecipe recipe={recipe} /> }
     </main>
   )
 }
