@@ -1,13 +1,11 @@
-import React from "react"
-import Header from "./Header"
-import Body from "./Body"
+import Header from "./components/Header"
+import Main from "./components/Main"
 
 export default function App() {
-    const [userName] = React.useState("Abdulrahim");
     return (
-        <main>
-            <Header userName={userName} />
-            <Body userName={userName} />
-        </main>
+        <>
+            <Header />
+            <Main />
+        </>
     )
 }
