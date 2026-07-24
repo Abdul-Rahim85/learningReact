@@ -1,11 +1,12 @@
 import React from "react"
 import IngredientsList from "./IngredientsList.jsx"
 import ClaudeRecipe from "./ClaudeRecipe.jsx"
-import { getRecipeFromMistral } from "../ai"
+import { getRecipeFromQwen } from "../ai"
 
 export default function Main() {
-  const [ingredients, setIngredients] = React.useState([]);
+  const [ingredients, setIngredients] = React.useState(["chicken", "all the main spices", "corn", "heavy cream", "pasta"]);
   const [recipe, setRecipe] = React.useState("");
+  const recipeSection = React.useRef(null);
 
   // Handle adding a new ingredient
   function handleAddIngredient(formData) {
@@ -16,12 +17,22 @@ export default function Main() {
   // Handle showing the recipe
   async function handleShowRecipe() {
     try {
-      const recipeMarkdown = await getRecipeFromMistral(ingredients);
+      const recipeMarkdown = await getRecipeFromQwen(ingredients);
       setRecipe(recipeMarkdown);
     } catch (error) {
       console.error("Error fetching recipe:", error);
     }
   }
+
+  // This function is scroll the page to the Generated racipe when it ready
+  React.useEffect(() => {
+    if(recipe !== "" && recipeSection !== null) {
+      recipeSection.current.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  }, [recipe]);
+  
   return (
     <main>
       <form action={handleAddIngredient} className="add-ingredient-form">
@@ -35,6 +46,7 @@ export default function Main() {
         <button>Add ingredient</button>
       </form>
       <IngredientsList 
+        ref={recipeSection}
         ingredients={ingredients} 
         showingRecipe={handleShowRecipe}
         />
